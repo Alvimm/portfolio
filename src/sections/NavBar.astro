@@ -1,0 +1,145 @@
+---
+import Logo from "../components/Logo.astro";
+import ToggleSwitch from "../components/ToggleSwitch.astro";
+--- -->
+
+<script type="module" is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    // 1. Inicializar Estado do Menu
+    let menuOpen = false;
+
+    // 2. Selecionar Elementos
+    const menuButton = document.querySelector(
+      'button[aria-controls="mobile-menu"]',
+    );
+    const menu = document.getElementById("mobile-menu");
+    const iconOpen = menuButton.querySelector("svg.block");
+    const iconClose = menuButton.querySelector("svg.hidden");
+    const menuLinks = document.querySelectorAll('#mobile-menu a');
+
+    // 3. Adicionar Event Listener ao Botão do Menu
+    menuButton.addEventListener("click", toggleMenu);
+
+    // 4. Adicionar Event Listener aos Links do Menu
+    menuLinks.forEach(link => {
+      link.addEventListener("click", toggleMenu);
+    });
+
+    // 5. Função de Toggle do Menu
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      menu.classList.toggle("hidden", !menuOpen);
+      iconOpen.classList.toggle("hidden", menuOpen);
+      iconClose.classList.toggle("hidden", !menuOpen);
+      menuButton.setAttribute("aria-expanded", menuOpen);
+    }
+  });
+</script> 
+
+ <nav class="backdrop-blur-md z-50 fixed top-0 w-full">
+  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="relative flex h-16 items-center justify-between">
+      <div class="absolute inset-y-0 right-0 flex items-center sm:hidden">
+        
+        <button
+          type="button"
+          class="relative inline-flex items-center justify-center rounded-md p-2 dark:text-gray-400 text-gray-700 dark:hover:bg-gray-700 hover:bg-blue-300 dark:hover:text-white hover:text-black focus:outline-none focus:ring-2 focus:ring-inset dark:focus:ring-white focus:ring-black"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span class="absolute -inset-0.5"></span>
+          <span class="sr-only">Abrir menu principal</span>
+  
+          <svg
+            class="block h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+          </svg>
+
+          <svg
+            class="hidden h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="flex flex-1 items-center sm:items-stretch sm:justify-between">
+        <div class="flex flex-shrink-0 items-center">
+          <Logo />
+        </div>
+        <div class="hidden sm:ml-6 sm:block">
+          <div class="flex space-x-4">
+            <a
+              href="#home"
+              class="rounded-md dark:hover:bg-gray-700 hover:bg-blue-300 px-3 py-2 text-sm font-medium dark:text-white"
+              aria-current="page">Home</a
+            >
+            <a
+              href="#skills"
+              class="rounded-md dark:hover:bg-gray-700 hover:bg-blue-300 px-3 py-2 text-sm font-medium dark:text-white"
+              >Skills</a
+            >
+            <a
+              href="#projects"
+              class="rounded-md dark:hover:bg-gray-700 hover:bg-blue-300 px-3 py-2 text-sm font-medium dark:text-white"
+              >Projetos</a
+            >
+            <a
+              href="#contact"
+              class="rounded-md dark:hover:bg-gray-700 hover:bg-blue-300 px-3 py-2 text-sm font-medium dark:text-white"
+              >Contato</a
+            >
+          </div>
+        </div>
+      </div>
+      <ToggleSwitch />
+    </div>
+  </div>
+
+  <div class="sm:hidden hidden" id="mobile-menu">
+    <div class="space-y-1 px-2 pb-3 pt-2">
+      <a
+        href="#home"
+        class="block rounded-md px-3 py-2 text-base font-medium dark:text-gray-300 text-gray-800 dark:hover:bg-gray-700 hover:bg-blue-300 dark:hover:text-white hover:text-black"
+        aria-current="page">Home</a
+      >
+      <a
+        href="#skills"
+        class="block rounded-md px-3 py-2 text-base font-medium dark:text-gray-300 text-gray-800 dark:hover:bg-gray-700 hover:bg-blue-300 dark:hover:text-white hover:text-black"
+        >Skills</a
+      >
+      <a
+        href="#projects"
+        class="block rounded-md px-3 py-2 text-base font-medium dark:text-gray-300 text-gray-800 dark:hover:bg-gray-700 hover:bg-blue-300 dark:hover:text-white hover:text-black"
+        >Projetos</a
+      >
+      <a
+        href="#contact"
+        class="block rounded-md px-3 py-2 text-base font-medium dark:text-gray-300 text-gray-800 dark:hover:bg-gray-700 hover:bg-blue-300 dark:hover:text-white hover:text-black"
+        >Contato</a
+      >
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+

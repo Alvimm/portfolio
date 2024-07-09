@@ -1,0 +1,25 @@
+---
+import { myProjects } from "../assets/data";
+
+---
+<style>
+  .project-card:hover > a > div > h1,
+  .project-card:hover > a > div > p {
+    color: #67e8f9;
+  }
+</style>
+
+{
+  myProjects.map((project) => (
+    <div class="project-card relative overflow-hidden rounded-lg shadow-lg border cursor-pointer transform transition-transform duration-500 hover:scale-105 hover:border-[#9fa2f1] bg-light dark:bg-[#07002eb9] ">
+      <a href={project.link} target="_blank" rel="noopener noreferrer">
+        <div class="relative p-3">
+          <h1 class="text-2xl font-semibold text-black dark:text-white">
+            {project.title}
+          </h1>
+          <p class="text-gray-600 dark:text-gray-300">{project.description}</p>
+        </div>
+      </a>
+    </div>
+  ))
+}

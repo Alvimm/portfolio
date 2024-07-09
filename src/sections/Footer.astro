@@ -1,0 +1,17 @@
+---
+import Logo from "../components/Logo.astro";
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 pb-2">
+  <div class="flex flex-wrap justify-center sm:justify-between items-center">
+    <Logo />
+    <div class="w-full sm:w-1/2 text-center sm:text-right">
+      <p>
+        Copyright &copy; <span class="year">{currentYear}</span> by alvimm. All rights
+        reserved.
+      </p>
+    </div>
+  </div>
+</footer>

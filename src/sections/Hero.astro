@@ -1,0 +1,52 @@
+---
+
+import { socials} from '../assets/data';
+import { Image } from 'astro:assets';
+import darkIcon from '/src/assets/darkIcon.svg';
+import lightIcon from '/src/assets/lightIcon.svg';
+---
+
+
+<main
+  class="mt-16 xl:mt-24 px-8 md:px-12 xl:px-28 flex flex-col gap-16 xl:flex-row-reverse xl:items-center xl:h-screen"
+>
+  <Image src={darkIcon} alt="" loading="eager" class="mx-auto w-[35rem] opacity-40 xl:opacity-100 hidden dark:block pb-32" />
+  <Image src={lightIcon}  alt="" loading="eager" class="mx-auto w-[35rem] opacity-40 xl:opacity-100 dark:hidden pb-32" />
+  <div
+    class="flex flex-col gap-8 items-center xl:items-start text-center xl:text-left mt-[-15rem]"
+  >
+    <h1 class="text-5xl xl:text-7xl font-bold">
+      Oi,
+      <span class="dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-cyan-600 dark:to-cyan-300 text-transparent bg-clip-text bg-gradient-to-r from-[#030014] to-[#8286F1]">sou alvimm</span> um dev full stack
+    </h1>
+    <p class="text-lg">
+      Meu nome é Filipe Alvim, sou um estudante de Desenvolvedor Full Stack com
+        experiência em desenvolvimento web, mobile e de software. Confira meus projetos
+        e habilidades!
+    </p>
+    <div class="flex flex-row gap-5">
+
+    
+    {
+      socials.map((social) => (
+            <a target="_blank"
+               href={social.href}
+               aria-label={social.name}
+               class={`text-6xl xl:text-8xl opacity-40 hover:opacity-100 ${social.hoverClass} duration-300 ease-in `}
+            >
+               <i class={social.logo} />
+            </a>
+      ))
+   }
+   </div>
+  </div>
+</main>
+<style>
+  .blue-hover:hover {
+  color: #126BC4;
+}
+
+.white-hover:hover {
+  color: white;
+}
+</style>

@@ -1,0 +1,119 @@
+---
+import { skills } from "../assets/data";
+import Header from "../components/Header.astro";
+let replicationCount = 4;
+---
+
+<section class="flex flex-col justify-center pt-16 lg:pt-0 xl:h-screen" id="skills">
+  <Header text="Skills"/>
+  <div id="slider" class='slider relative overflow-hidden h-48 dark:bg-dark '>
+    <div class="slide-track flex border-gray-100/10 border-4 h-full animate-scroll">
+      {
+        Array(replicationCount).fill(null).map(() => (
+          skills.map((skill) => (
+            <div class="slide py-14 sm:py-10 w-full">
+              <i
+                class={`${skill.logo} ${skill.color} text-[70px] sm:text-[90px] mx-3 lg:mx-0 border-gray-500 dark:border-gray-100/50 border-2 rounded-lg dark:bg-[#07002eb9] bg-light`}
+              />
+            </div>
+          ))
+        ))
+      }
+    </div>
+  </div>
+</section>
+<script>
+    window.onload = function() {
+        let toggleButton = document.getElementById('toggle');
+        let sliderElement = document.getElementById('slider');
+
+        if (toggleButton && sliderElement) {
+            toggleButton.addEventListener('click', function() {
+                if (document.documentElement.classList.contains('dark')) {
+                    sliderElement!.className = 'slider relative overflow-hidden h-48 dark:bg-dark ';
+                } else {
+                    sliderElement!.className = 'slider-light relative overflow-hidden shadow-md h-48 dark:bg-dark ';
+                }
+            });
+        }
+    };
+</script>
+<style>
+  @-webkit-keyframes scroll {
+    0% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+    100% {
+      -webkit-transform: translateX(calc(-250px * 7));
+      transform: translateX(calc(-250px * 7));
+    }
+  }
+  @keyframes scroll {
+    0% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+    100% {
+      -webkit-transform: translateX(calc(-100% * 7));
+      transform: translateX(calc(-250px * 7));
+    }
+  }
+  .slider::before,
+  .slider::after {
+    background: linear-gradient(
+      to right,
+      rgb(3 0 20) 25%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    content: "";
+    height: 200px;
+    position: absolute;
+    width: 200px;
+    z-index: 2;
+  }
+  .slider::after {
+    right: 0;
+    top: 0;
+    -webkit-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+  }
+  .slider::before {
+    left: 0;
+    top: 0;
+  }
+  .slider .slide-track {
+    -webkit-animation: scroll 30s linear infinite;
+    animation: scroll 30s linear infinite;
+    width: calc(100% * 6.5);
+  }
+
+  .slider-light::before,
+  .slider-light::after {
+    background: linear-gradient(
+      to right,
+      rgb(191, 219, 254) 25%,
+      rgba(234, 234, 234, 0) 100%
+    );
+    content: "";
+    height: 200px;
+    position: absolute;
+    width: 200px;
+    z-index: 2;
+  }
+  .slider-light::after {
+    right: 0;
+    top: 0;
+    -webkit-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+  }
+  .slider-light::before {
+    left: 0;
+    top: 0;
+  }
+  .slider-light .slide-track {
+    -webkit-animation: scroll 30s linear infinite;
+    animation: scroll 30s linear infinite;
+    width: calc(100% * 6.5);
+  }
+</style>

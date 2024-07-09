@@ -1,0 +1,100 @@
+---
+import Header from "../components/Header.astro";
+import { Image } from 'astro:assets';
+import mailBox from '/src/assets/mailbox.svg';
+const formSpreeURL = import.meta.env.FORMSPREE_URL;
+---
+
+<section id="contact" class="flex flex-col justify-center xl:h-screen">
+  <div class="max-w-screen-2xl">
+    <Header text="Contato"/>
+    <div class="lg:ml-28 px-4 lg:flex">
+      <form id="my-form" action={formSpreeURL} method="POST" class="space-y-8 lg:flex-grow">
+        <div>
+          <label
+            for="email"
+            class="block mb-2 text-sm font-semibold dark:text-gray-300 text-black"
+            >Seu email</label
+          >
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="shadow-sm text-sm block w-full p-2.5 bg-light dark:bg-[#07002eb9] rounded dark:placeholder-gray-400 dark:text-white dark:shadow-sm-light placeholder-gray-600"
+            placeholder="seu-email@gmail.com"
+            required
+          />
+        </div>
+        <div class="sm:col-span-2">
+          <label
+            for="message"
+            class="block mb-2 text-sm font-semibold dark:text-gray-300 text-black"
+            >Sua mensagem</label
+          >
+          <textarea
+            required
+            style="resize: none;"
+            name="message"
+            id="message"
+            rows="7"
+            maxlength="2000"
+            class="block p-2.5 w-full text-sm shadow-sm border-gray-300 bg-light dark:bg-[#07002eb9] rounded dark:border-black placeholder-gray-600 dark:placeholder-gray-400 dark:text-white"
+            placeholder="Deixe um comentário..."></textarea>
+        </div>
+        <button
+          id="my-form-button"
+          type="submit"
+          class="dark:text-white dark:bg-inherit dark:hover:bg-[#07002eb9] border bg-white hover:bg-stone-100 focus:ring-stone-300 font-semibold text-sm px-5 py-2.5 mr-2 mb-2 rounded-lg"
+          >Enviar mensagem</button
+        >
+        <p id="my-form-status"></p>
+      </form>
+      <Image src={mailBox} alt="" class="lg:w-[25rem] w-[20rem] ml-40 hidden lg:block" />
+    </div>
+  </div>
+</section>
+
+<style>
+  form {
+    padding: 20px 0;
+  }
+  label {
+    display: block;
+  }
+</style>
+
+<script is:inline>
+  var form = document.getElementById("my-form");
+  async function handleSubmit(event) {
+    event.preventDefault();
+    var status = document.getElementById("my-form-status");
+    var data = new FormData(event.target);
+    fetch(event.target.action, {
+      method: form.method,
+      body: data,
+      headers: { Accept: "application/json" },
+    })
+      .then((response) => {
+        if (response.ok) {
+          status.innerHTML = "Obrigado pela sua mensagem!"
+          form.reset();
+        } else {
+          response.json().then((data) => {
+            if (Object.hasOwn(data, "errors")) {
+              status.innerHTML = data["errors"]
+                .map((error) => error["message"])
+                .join(", ");
+            } else {
+              status.innerHTML =
+                "Ops! Houve um problema ao enviar o seu formulário";
+            }
+          });
+        }
+      })
+      .catch((error) => {
+        error.preventDefault();
+        status.innerHTML = "Ops! Houve um problema ao enviar o seu formulário";
+      });
+  }
+  form.addEventListener("submit", handleSubmit);
+</script>
